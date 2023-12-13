@@ -16,8 +16,8 @@ public class JoystickPlayerExample : MonoBehaviour
             Debug.LogWarning("VariableJoystick or Rigidbody is not assigned.");
             return;
         }
-        //Vector3 direction = Camera.main.transform.forward * variableJoystick.Vertical + Camera.main.transform.right * variableJoystick.Horizontal;
-        direction = transform.forward * variableJoystick.Vertical + transform.right * variableJoystick.Horizontal;
+        direction = Camera.main.transform.forward * variableJoystick.Vertical + Camera.main.transform.right * variableJoystick.Horizontal;
+        //direction = transform.forward * variableJoystick.Vertical + transform.right * variableJoystick.Horizontal;
         direction.y = 0;  // Giữ nhân vật di chuyển trên mặt phẳng
         rb.velocity = direction.normalized * speed;
         if (_animator.GetBool(Settings.AnimationRun) == false && rb.velocity != Vector3.zero)

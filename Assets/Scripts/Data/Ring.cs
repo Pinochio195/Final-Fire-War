@@ -16,6 +16,7 @@ namespace Ring
     {
         [ChangeColorLabel(0.2f, 1, 1)] public List<Rigidbody> _listRigidbody;
         [ChangeColorLabel(0.2f, 1, 1)] public Animator _animator;
+        [ChangeColorLabel(0.2f, 1, 1)] public Transform _rotateCamPlayer;
     }
 
     [Serializable]
