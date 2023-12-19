@@ -12,9 +12,27 @@ public class MusicManager : RingSingleton<MusicManager>
         PlayerBackGround();
     }
 
-    public void PlayAudio_Grenade()
+    public void PlayAudio(MusicController.TypeMusic _audioType)
     {
-        //_musicController.audioSource_Grenade.PlayOneShot(_musicController.audioClip_Grenade);
+        if (_audioType == MusicController.TypeMusic.Fire)
+        {
+            _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[0]);
+        }
+        else if(_audioType == MusicController.TypeMusic.FireLoop)
+        {
+            _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[1]);
+
+        }
+        else if (_audioType == MusicController.TypeMusic.TouchBorder)
+        {
+            _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[2]);
+
+        }
+        else if (_audioType == MusicController.TypeMusic.TouchZombie)
+        {
+            _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[3]);
+
+        }
     }
     public void PlayerBackGround()
     {

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4395713738223160}
   - component: {fileID: 198862356557543532}
   - component: {fileID: 199441442605483222}
-  - component: {fileID: -3617883974287199208}
   m_Layer: 0
   m_Name: Plasma Bang 01 Lava Mobile Lite
   m_TagString: Untagged
@@ -4642,7 +4641,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 12e20193207b51942a5477c86e10837e, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4695,26 +4693,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-3617883974287199208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980611886039548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14275460eb1f53d41b0293b4211ef347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsBezier: 0
-  BezierSmoothSens: 20
-  CameraWaitTime: 0
-  IsCameraFollow: 0
-  CameraSpeed: 10
-  IsApprove: 1
-  IsPath: 0
-  Waypoints: []
-  IsHideInInspector: 0
-  PS: {fileID: 198862356557543532}
-  Speed: 2

@@ -37,6 +37,7 @@ public class VariableJoystick : Joystick
             background.gameObject.SetActive(true);
         }
         base.OnPointerDown(eventData);
+
     }
 
     public override void OnPointerUp(PointerEventData eventData)

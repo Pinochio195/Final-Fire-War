@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class JoystickPlayerExample : MonoBehaviour
+public class JoystickPlayerExample : MonoBehaviour , IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public float speed;
     public VariableJoystick variableJoystick;
@@ -16,9 +17,12 @@ public class JoystickPlayerExample : MonoBehaviour
             Debug.LogWarning("VariableJoystick or Rigidbody is not assigned.");
             return;
         }
-        direction = Camera.main.transform.forward * variableJoystick.Vertical + Camera.main.transform.right * variableJoystick.Horizontal;
-        //direction = transform.forward * variableJoystick.Vertical + transform.right * variableJoystick.Horizontal;
+        direction = transform.forward * variableJoystick.Vertical + transform.right * variableJoystick.Horizontal;
         direction.y = 0;  // Giữ nhân vật di chuyển trên mặt phẳng
+        if (direction != Vector3.zero)
+        {
+            PlayerManager.Instance._playerController._directionBullet = direction.normalized;
+        }
         rb.velocity = direction.normalized * speed;
         if (_animator.GetBool(Settings.AnimationRun) == false && rb.velocity != Vector3.zero)
         {
@@ -31,9 +35,24 @@ public class JoystickPlayerExample : MonoBehaviour
         TargetEnemy();
     }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        //PlayerManager.Instance._playerController._directionBullet = direction.normalized;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        //PlayerManager.Instance._playerController._directionBullet = direction.normalized;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //PlayerManager.Instance._playerController._directionBullet = direction.normalized;
+    }
+
     public void TargetEnemy()
     {
-        if (direction != Vector3.zero)
+        if (direction != Vector3.zero && !PlayerManager.Instance._playerController.isCheckTarget)
         {
             Quaternion toRotation = Quaternion.LookRotation(direction);
             _meshPlayer.rotation = toRotation;

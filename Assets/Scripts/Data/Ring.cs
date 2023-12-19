@@ -1,29 +1,72 @@
+﻿using System;
 using System.Collections.Generic;
-using System;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.AI;
 
 namespace Ring
 {
     #region Component
+
     [Serializable]
     public class GameController
     {
         [ChangeColorLabel(0.2f, 1, 1)] public GameObject _player;
     }
+
     [Serializable]
     public class PlayerController
     {
         [ChangeColorLabel(0.2f, 1, 1)] public List<Rigidbody> _listRigidbody;
         [ChangeColorLabel(0.2f, 1, 1)] public Animator _animator;
-        [ChangeColorLabel(0.2f, 1, 1)] public Transform _rotateCamPlayer;
+        [ChangeColorLabel(0.2f, 1, 1)] public Transform _rotatePlayer;
+
+        [HeaderTextColor(0.5f, .5f, 1f, headerText = "Fire For Player")]
+        [ChangeColorLabel(0.2f, 1, 1)] public Transform _firePosition;
+
+        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _prefabBullet;
+        [ChangeColorLabel(0.2f, 1, 1)] public Vector3 _directionBullet;
+        [ChangeColorLabel(0.2f, 1, 1)] public ParticleSystem _effectFire;
+        [HeaderTextColor(0.5f, .5f, 1f, headerText = "List Bot in deadzone")]
+        [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listBot;
+        [ChangeColorLabel(0.2f, 1, 1)] public bool isCheckTarget;
+    }
+    [Serializable]
+    public class BotManager
+    {
+        [HeaderTextColor(0.5f, .5f, 1f, headerText = "State Machine")]
+        [ChangeColorLabel(0.2f, 1, 1)] public List<Rigidbody> _listRigidbody;
+        [ChangeColorLabel(0.2f, 1, 1)] public Animator _animator;
+        [ChangeColorLabel(0.2f, 1, 1)] public Transform _rotateZombie;
+        [ChangeColorLabel(0.2f, 1, 1)] public Collider _collider;
+        [ChangeColorLabel(0.2f, 1, 1)] public NavMeshAgent _navMeshAgent;
+        public enum CheckPlayer
+        {
+            InSide,
+            OutSide
+        }
+        [HeaderTextColor(0.5f, .5f, 1f, headerText = "Check Player")]
+        [ChangeColorLabel(0.2f, 1, 1)] public CheckPlayer _checkZonePlayer = CheckPlayer.OutSide;
+        [Tooltip("Tìm player để nhận destination (Không sử dụng để reference)")][ChangeColorLabel(0.2f, 1, 1)] public Vector3 _positionDestination;
+
     }
 
     [Serializable]
     public class MusicController
     {
-        [ChangeColorLabel(0.2f, 1, 1)] public AudioSource audioSource_;
-        [ChangeColorLabel(0.9f, .55f, .95f)] public AudioClip audioClip_;
+        [ChangeColorLabel(0.2f, 1, 1)] public AudioSource audioSource_Element;
+        [ChangeColorLabel(0.9f, .55f, .95f)] public List<AudioClip> listAudioClip;
+
+        public enum TypeMusic
+        {
+            Fire,
+            FireLoop,
+            TouchBorder, 
+            TouchZombie,
+            Bomb, 
+            BackGround
+        }
+        [ChangeColorLabel(0.9f, .55f, .95f)] public TypeMusic _audioType;
     }
 
     [Serializable]
@@ -40,11 +83,12 @@ namespace Ring
         [ChangeColorLabel(.7f, 1f, 1f)] public string _nameSceneChange;
     }
 
-    #endregion
+    #endregion Component
 
     #region Text Color
 
 #if UNITY_EDITOR
+
     [CustomPropertyDrawer(typeof(HeaderTextColorAttribute))]
     public class HeaderTextColorDecorator : DecoratorDrawer
     {
@@ -112,6 +156,7 @@ namespace Ring
             EditorGUI.EndProperty();
         }
     }
+
 #endif
 
     public class HeaderTextColorAttribute : PropertyAttribute
@@ -136,7 +181,7 @@ namespace Ring
         }
     }
 
-    #endregion
+    #endregion Text Color
 
     #region Editor Window
 
@@ -146,7 +191,7 @@ namespace Ring
 
     public class SavingPositionObject : EditorWindow
     {
-        Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
+        private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
 
         #region Saving Position Object
 
@@ -156,17 +201,17 @@ namespace Ring
             GetWindow<SavingPositionObject>("Saving Position Object");
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             EditorApplication.playModeStateChanged += HandlePlayModeChange;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EditorApplication.playModeStateChanged -= HandlePlayModeChange;
         }
 
-        void HandlePlayModeChange(PlayModeStateChange state)
+        private void HandlePlayModeChange(PlayModeStateChange state)
         {
             if (state == PlayModeStateChange.EnteredEditMode)
             {
@@ -175,7 +220,7 @@ namespace Ring
             }
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             if (GUILayout.Button("Save Positions"))
             {
@@ -183,7 +228,7 @@ namespace Ring
             }
         }
 
-        void SavePositions()
+        private void SavePositions()
         {
             GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
             foreach (GameObject obj in allObjects)
@@ -192,7 +237,7 @@ namespace Ring
             }
         }
 
-        void LoadPositions()
+        private void LoadPositions()
         {
             foreach (KeyValuePair<GameObject, Vector3> entry in originalPositions)
             {
@@ -203,12 +248,12 @@ namespace Ring
             }
         }
 
-        #endregion
+        #endregion Saving Position Object
     }
 
     public class ObjectPositionSaverEditor : EditorWindow
     {
-        Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
+        private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
 
         #region Object Position Saver
 
@@ -218,7 +263,7 @@ namespace Ring
             GetWindow<ObjectPositionSaverEditor>("Object Position Saver");
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             if (GUILayout.Button("Save Positions"))
             {
@@ -231,7 +276,7 @@ namespace Ring
             }
         }
 
-        void SavePositions()
+        private void SavePositions()
         {
             GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
             foreach (GameObject obj in allObjects)
@@ -240,7 +285,7 @@ namespace Ring
             }
         }
 
-        void LoadPositions()
+        private void LoadPositions()
         {
             foreach (KeyValuePair<GameObject, Vector3> entry in originalPositions)
             {
@@ -248,14 +293,14 @@ namespace Ring
             }
         }
 
-        #endregion
+        #endregion Object Position Saver
     }
 
-    #endregion
+    #endregion Save Position Object
 
 #endif
 
-    #endregion
+    #endregion Editor Window
 
     #region Base Method
 
@@ -302,10 +347,8 @@ namespace Ring
             {
                 DontDestroyOnLoad(gameObject);
             }
-            
-            
         }
     }
 
-    #endregion
+    #endregion Base Method
 }
