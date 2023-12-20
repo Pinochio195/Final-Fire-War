@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using Ring;
 using UnityEngine;
-using Ring;
 
 public class BotController : MonoBehaviour
 {
@@ -12,11 +10,12 @@ public class BotController : MonoBehaviour
     public AttackState attackState;
     public FiniteStateMachine stateMachine;
 
-    void Start()
+    private void Start()
     {
         Intil();
         StateMachineBot();
     }
+
     private void StateMachineBot()
     {
         stateMachine = new FiniteStateMachine();
@@ -26,9 +25,23 @@ public class BotController : MonoBehaviour
         attackState = new AttackState(this, stateMachine);
         stateMachine.Initialize(idleState);
     }
+
     private void Intil()
     {
-        
+    }
+
+    public void ActiveRagdoll()
+    {
+        _botController._animator.enabled = false;
+        _botController._listRigidbody.ForEach(a => a.isKinematic = false);
+        _botController._navMeshAgent.isStopped = true;
+        gameObject.layer = LayerMask.NameToLayer(Settings.LayerDie);
+        _botController._navMeshAgent.enabled = false;
+        _botController._touchBullet._imageDamage.gameObject.SetActive(false);
+        gameObject.tag = Settings.Tag_Die;
+        PlayerManager.Instance._playerController._listBot.Remove(this);
+        _botController._positionDestination = Vector3.zero;
+        this.enabled = false;
     }
 
     public virtual void Update()

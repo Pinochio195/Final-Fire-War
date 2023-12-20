@@ -11,6 +11,9 @@ public static class Settings
     public static string Tag_Player = "Player";
     public static string Tag_CheckZombie = "CheckZombie";
     public static string Tag_Bullet = "Bullet";
+    public static string Tag_Die = "Die";
+    public static string Tag_Ground = "Ground";
+    public static string LayerDie = "Die";
     public static float RadiusAttackPlayer = .75f;
 
 }

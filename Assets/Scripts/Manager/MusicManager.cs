@@ -18,19 +18,24 @@ public class MusicManager : RingSingleton<MusicManager>
         {
             _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[0]);
         }
-        else if(_audioType == MusicController.TypeMusic.FireLoop)
+        if(_audioType == MusicController.TypeMusic.FireLoop)
         {
             _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[1]);
 
         }
-        else if (_audioType == MusicController.TypeMusic.TouchBorder)
+        if (_audioType == MusicController.TypeMusic.TouchBorder)
         {
             _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[2]);
 
         }
-        else if (_audioType == MusicController.TypeMusic.TouchZombie)
+        if (_audioType == MusicController.TypeMusic.TouchZombie)
         {
             _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[3]);
+
+        }
+        if (_audioType == MusicController.TypeMusic.Bomb)
+        {
+            _musicController.audioSource_Element.PlayOneShot(_musicController.listAudioClip[Random.Range(4,7)]);
 
         }
     }

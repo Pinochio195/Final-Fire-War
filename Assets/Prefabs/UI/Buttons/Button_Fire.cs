@@ -22,7 +22,6 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         isCheckVibrate = false;
-        PlayerManager.Instance._playerController._animator.SetBool(Settings.AnimationFire, false);
     }
 
     private void Update()
@@ -31,6 +30,10 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             ClickFIre();
         }
+        else
+        {
+            StartCoroutine(ResetBullet(null));
+        }
     }
 
     private void ClickFIre()
@@ -38,10 +41,7 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (isCheckVibrate)
         {
             Handheld.Vibrate();
-            if (!PlayerManager.Instance._playerController._animator.GetBool(Settings.AnimationFire))
-            {
-                PlayerManager.Instance._playerController._animator.SetBool(Settings.AnimationFire, true);
-            }
+
             if (Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate * Time.deltaTime;
@@ -58,7 +58,7 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if (count1 <= 0)
             {
-                StartCoroutine(ResetBullet());
+                StartCoroutine(ResetBullet(null));
             }
             else
             {
@@ -71,13 +71,16 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     MusicManager.Instance.PlayAudio(Ring.MusicController.TypeMusic.Fire);
                 }
-                Debug.Log(_countFire1.text);
             }
         }
     }
 
-    public IEnumerator ResetBullet()
+    public IEnumerator ResetBullet(Button buttonReload)
     {
+        if (buttonReload != null)
+        {
+            buttonReload.interactable = false;//chống spam
+        }
         float elapsedTime = 0f;
         int count2 = Int32.Parse(_countFire2.text);
         int count1 = Int32.Parse(_countFire1.text);
@@ -96,6 +99,10 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             // Khi coroutine kết thúc, làm thêm gì đó nếu cần
             Debug.Log("Fill completed!");
+            if (buttonReload != null)
+            {
+                buttonReload.interactable = true;//chống spam
+            }
             count2 -= 40;
             _countFire2.text = count2.ToString();
             _countFire1.text = 40.ToString();

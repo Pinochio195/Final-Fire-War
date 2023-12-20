@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 namespace Ring
 {
@@ -12,6 +13,7 @@ namespace Ring
     public class GameController
     {
         [ChangeColorLabel(0.2f, 1, 1)] public GameObject _player;
+        [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listZombie;
     }
 
     [Serializable]
@@ -29,7 +31,7 @@ namespace Ring
         [ChangeColorLabel(0.2f, 1, 1)] public ParticleSystem _effectFire;
         [HeaderTextColor(0.5f, .5f, 1f, headerText = "List Bot in deadzone")]
         [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listBot;
-        [ChangeColorLabel(0.2f, 1, 1)] public bool isCheckTarget;
+        [ChangeColorLabel(0.2f, 1, 1)][Tooltip("Dùng để check khi có zombie vào trong vòng deadzone")] public bool isCheckTarget;
     }
     [Serializable]
     public class BotManager
@@ -48,6 +50,11 @@ namespace Ring
         [HeaderTextColor(0.5f, .5f, 1f, headerText = "Check Player")]
         [ChangeColorLabel(0.2f, 1, 1)] public CheckPlayer _checkZonePlayer = CheckPlayer.OutSide;
         [Tooltip("Tìm player để nhận destination (Không sử dụng để reference)")][ChangeColorLabel(0.2f, 1, 1)] public Vector3 _positionDestination;
+        [HeaderTextColor(0.5f, .5f, 1f, headerText = "Touch Bullet")]
+        [ChangeColorLabel(0.2f, 1, 1)] public TouchBullet _touchBullet;
+
+        
+
 
     }
 
@@ -63,7 +70,7 @@ namespace Ring
             FireLoop,
             TouchBorder, 
             TouchZombie,
-            Bomb, 
+            Bomb,
             BackGround
         }
         [ChangeColorLabel(0.9f, .55f, .95f)] public TypeMusic _audioType;
@@ -72,8 +79,7 @@ namespace Ring
     [Serializable]
     public class UiController
     {
-        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _winGameObject;
-        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _settingGameObject;
+        [ChangeColorLabel(0.2f, 1, 1)] public Text _textAlive;
     }
 
     [Serializable]

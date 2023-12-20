@@ -27,10 +27,12 @@ public class JoystickPlayerExample : MonoBehaviour , IPointerDownHandler, IDragH
         if (_animator.GetBool(Settings.AnimationRun) == false && rb.velocity != Vector3.zero)
         {
             _animator.SetBool(Settings.AnimationRun, true);
+            _animator.SetLayerWeight(1,0);
         }
         else if (_animator.GetBool(Settings.AnimationRun) == true && rb.velocity == Vector3.zero)
         {
             _animator.SetBool(Settings.AnimationRun, false);
+            _animator.SetLayerWeight(1,1);
         }
         TargetEnemy();
     }

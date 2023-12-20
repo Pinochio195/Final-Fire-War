@@ -37,13 +37,16 @@ public class CheckPlayer : MonoBehaviour
         {
             if (Vector3.Distance(PlayerManager.Instance.transform.position, _botController.transform.position) > Settings.RadiusAttackPlayer)
             {
-                _botController._botController._positionDestination = GameManager.Instance.GetPositionPlayer(_botController);
-                _botController._botController._navMeshAgent.SetDestination(_botController._botController._positionDestination);
-                _botController._botController._navMeshAgent.isStopped = false;
+                if (_botController._botController._navMeshAgent.enabled)
+                {
+                    _botController._botController._positionDestination = GameManager.Instance.GetPositionPlayer(_botController);
+                    _botController._botController._navMeshAgent.SetDestination(_botController._botController._positionDestination);
+                    _botController._botController._navMeshAgent.isStopped = false;
+                }
             }
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(Settings.Tag_Player))
@@ -51,6 +54,7 @@ public class CheckPlayer : MonoBehaviour
             _botController._botController._checkZonePlayer = BotManager.CheckPlayer.OutSide;
             _botController.stateMachine.ChangeState(_botController.idleState);
             _botController._botController._positionDestination = Vector3.zero;
+            
         }
     }
 }

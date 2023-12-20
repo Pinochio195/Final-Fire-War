@@ -1,12 +1,12 @@
 using Ring;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class UiManager : RingSingleton<UiManager>
 {
+    #region Base Code
+
     //dict for quick query UI prefab
     private Dictionary<System.Type, UICanvas> uiCanvasPrefab = new Dictionary<System.Type, UICanvas>();
 
@@ -144,5 +144,15 @@ public class UiManager : RingSingleton<UiManager>
     }
 
     #endregion
+    #endregion
+    [HeaderTextColor(0.2f, .7f, .8f, headerText = "CheckBox For Player")] public UiController _uiController;
+    private void Start()
+    {
+        UpdateAlive();
+    }
 
+    public void UpdateAlive()
+    {
+        _uiController._textAlive.text = GameManager.Instance._gameController._listZombie.Count.ToString();
+    }
 }
