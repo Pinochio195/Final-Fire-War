@@ -13,7 +13,10 @@ public class IdleState : State
         base.Enter();
         botController._botController._animator.SetInteger(Settings.Animation, 0);
         TimeDelay = 0;
-        botController._botController._navMeshAgent.isStopped = true;
+        if (botController._botController._navMeshAgent.enabled)
+        {
+            botController._botController._navMeshAgent.isStopped = true;
+        }
     }
 
     public override void Exit()
@@ -34,7 +37,7 @@ public class IdleState : State
             {
                 TimeDelay += Time.deltaTime;
             }
-            //random di ngẫu nhiên 
+            //random di ngẫu nhiên
         }
         else
         {
@@ -44,7 +47,7 @@ public class IdleState : State
             stateMachine.ChangeState(botController.runState);
         }
     }
-    
+
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();

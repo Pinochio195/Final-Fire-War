@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -12,8 +13,11 @@ namespace Ring
     [Serializable]
     public class GameController
     {
-        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _player;
+        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _playerPrefabs;
+        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _zombiePrefabs;
+        [ChangeColorLabel(0.2f, 1, 1)] public Transform _playerPositionCreate;
         [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listZombie;
+        [ChangeColorLabel(0.2f, 1, 1)] public List<Transform> _listPositionCreateZombie;
     }
 
     [Serializable]
@@ -32,6 +36,7 @@ namespace Ring
         [HeaderTextColor(0.5f, .5f, 1f, headerText = "List Bot in deadzone")]
         [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listBot;
         [ChangeColorLabel(0.2f, 1, 1)][Tooltip("Dùng để check khi có zombie vào trong vòng deadzone")] public bool isCheckTarget;
+        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _targetFollow;
     }
     [Serializable]
     public class BotManager
@@ -80,8 +85,14 @@ namespace Ring
     public class UiController
     {
         [ChangeColorLabel(0.2f, 1, 1)] public Text _textAlive;
+        [ChangeColorLabel(0.2f, 1, 1)] public VariableJoystick _variableJoystick;
+        [ChangeColorLabel(0.2f, 1, 1)] public LevelManager _levelManager;
     }
-
+    [Serializable]
+    public class LevelController
+    {
+        [ChangeColorLabel(0.2f, 1, 1)] public List<GameObject> _listLevel;
+    }
     [Serializable]
     public class CheckScene
     {

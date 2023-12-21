@@ -358,7 +358,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Xuong
     m_StateMachine: {fileID: -5993720357094433971}
-    m_Mask: {fileID: 31900000, guid: 45e6ec529bdf48f4496b291246155ef5, type: 2}
+    m_Mask: {fileID: 31900000, guid: 52ba5c687733c804689336016f0804e0, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

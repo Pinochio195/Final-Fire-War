@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Lean.Pool;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,16 +7,24 @@ public class Loading : MonoBehaviour
 {
     public Image iconReload;
     public float fillTime = 2f;
+    [SerializeField] private GameObject Home;
+    [SerializeField] private MainMenu mainMenu;
+
+    [SerializeField]
+    private GameObject instantiatedMap;
 
     // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         StartCoroutine(FillOverTime());
     }
 
-    IEnumerator FillOverTime()
+    private IEnumerator FillOverTime()
     {
         float elapsedTime = 0f;
+
+        // Start the LoadMap coroutine and wait for it to finish
+        yield return StartCoroutine(LoadMap());
 
         while (elapsedTime < fillTime)
         {
@@ -31,7 +39,23 @@ public class Loading : MonoBehaviour
             yield return null;
         }
 
+        Home.SetActive(false);
         // Khi coroutine kết thúc, làm thêm gì đó nếu cần
-        Debug.Log("Fill completed!");
+        Debug.Log("Load Map!");
+        instantiatedMap.SetActive(true);
+        mainMenu.Close();
+    }
+
+    private IEnumerator LoadMap()
+    {
+        // Tạo một bản đồ mới
+        GameObject map = Resources.Load("Level/1") as GameObject;
+        instantiatedMap = LeanPool.Spawn(map) as GameObject;
+        instantiatedMap.SetActive(false);
+        LevelManager.Instance.AddLevel(instantiatedMap);
+        // Chờ cho đến khi bản đồ được tải hoàn toàn
+        yield return new WaitUntil(() => instantiatedMap != null);
+
+        Debug.Log("Map loaded!");
     }
 }

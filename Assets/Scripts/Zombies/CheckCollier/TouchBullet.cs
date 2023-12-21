@@ -40,7 +40,7 @@ public class TouchBullet : MonoBehaviour
             {
                 _botController.ActiveRagdoll();
                 PlayerManager.Instance._playerController._listBot.Remove(_botController);
-                UiManager.Instance.UpdateAlive();
+                GameManager.Instance.UpdateAlive();
 
             }
             yield return null;

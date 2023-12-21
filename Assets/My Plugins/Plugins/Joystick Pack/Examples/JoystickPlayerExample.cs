@@ -4,11 +4,15 @@ using UnityEngine.EventSystems;
 public class JoystickPlayerExample : MonoBehaviour , IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public float speed;
-    public VariableJoystick variableJoystick;
+    private VariableJoystick variableJoystick;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _meshPlayer;
     [SerializeField] private Vector3 direction;
+    private void Start()
+    {
+        variableJoystick = UiManager.Instance._uiController._variableJoystick;
+    }
 
     public void FixedUpdate()
     {
@@ -17,7 +21,7 @@ public class JoystickPlayerExample : MonoBehaviour , IPointerDownHandler, IDragH
             Debug.LogWarning("VariableJoystick or Rigidbody is not assigned.");
             return;
         }
-        direction = transform.forward * variableJoystick.Vertical + transform.right * variableJoystick.Horizontal;
+        direction = Camera.main.transform.forward * variableJoystick.Vertical + Camera.main.transform.right * variableJoystick.Horizontal;
         direction.y = 0;  // Giữ nhân vật di chuyển trên mặt phẳng
         if (direction != Vector3.zero)
         {

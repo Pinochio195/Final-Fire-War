@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Setting : UICanvas
 {
-    public void ContinueButton()
+    public void CloseSetting()
     {
         Close();
     }

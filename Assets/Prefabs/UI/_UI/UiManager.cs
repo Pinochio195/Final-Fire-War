@@ -148,11 +148,8 @@ public class UiManager : RingSingleton<UiManager>
     [HeaderTextColor(0.2f, .7f, .8f, headerText = "CheckBox For Player")] public UiController _uiController;
     private void Start()
     {
-        UpdateAlive();
+        
     }
 
-    public void UpdateAlive()
-    {
-        _uiController._textAlive.text = GameManager.Instance._gameController._listZombie.Count.ToString();
-    }
+    
 }

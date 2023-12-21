@@ -21,7 +21,7 @@ public class GamePlay : UICanvas
     {
         UiManager.Instance.OpenUI<Setting>();
     }
-    public void PlayGame()
+    public void CloseSetting()
     {
         UiManager.Instance.OpenUI<Setting>();
     }

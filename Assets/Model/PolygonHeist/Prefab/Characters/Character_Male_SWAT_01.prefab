@@ -62,12 +62,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Elbow_R'\n\tTransform 'Elbow_L'\n\tTransform
-    'Hand_L'\n\tTransform 'Shoulder_L'\n\tTransform 'Shoulder_R'\n\tTransform 'Hand_R'\n\tTransform
-    'Elbow_R'\n\tTransform 'Elbow_L'\n\tTransform 'Hand_L'\n\tTransform 'Shoulder_L'\n\tand
-    more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -3710,7 +3705,7 @@ Transform:
   - {fileID: 493516}
   - {fileID: 409944}
   - {fileID: 408754}
-  - {fileID: 2473851314406882880}
+  - {fileID: 6888894507865434485}
   - {fileID: 350186264897266159}
   - {fileID: 6261910142864401552}
   - {fileID: 1197794837683328170}
@@ -4908,6 +4903,38 @@ SkinnedMeshRenderer:
     m_Center: {x: -29.079609, y: -5.1636333, z: -0.6212597}
     m_Extent: {x: 38.246914, y: 33.709145, z: 30.080309}
   m_DirtyAABB: 0
+--- !u!1 &1379178417588510464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6888894507865434485}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6888894507865434485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379178417588510464}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2473851314406882880}
+  m_Father: {fileID: 414102}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1892481771447679537
 GameObject:
   m_ObjectHideFlags: 0
@@ -5410,9 +5437,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2473851314407191400}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.54126096, y: 0.43936294, z: -0.46364257, w: 0.5468385}
-  m_LocalPosition: {x: 10.67, y: 3.21, z: -2.64}
-  m_LocalScale: {x: 99.99998, y: 99.99998, z: 99.99998}
+  m_LocalRotation: {x: -0.54126096, y: 0.43936297, z: -0.46364254, w: 0.5468385}
+  m_LocalPosition: {x: 10.67005, y: 3.209986, z: -2.6400185}
+  m_LocalScale: {x: 100, y: 100, z: 99.99998}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2473851314406935500}
@@ -5420,7 +5447,7 @@ Transform:
   - {fileID: 2473851314406917648}
   - {fileID: 2473851314406835796}
   - {fileID: 2473851314406874688}
-  m_Father: {fileID: 414102}
+  m_Father: {fileID: 6888894507865434485}
   m_LocalEulerAnglesHint: {x: -10.635, y: 88.368, z: -90.924}
 --- !u!33 &2473851314408259280
 MeshFilter:

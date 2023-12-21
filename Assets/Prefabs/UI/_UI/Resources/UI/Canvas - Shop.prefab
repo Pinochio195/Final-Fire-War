@@ -308,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3810796761477584280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 3810796761829793205}
   - component: {fileID: 3701969395628351009}
   m_Layer: 5
-  m_Name: Canvas - Tutorials
+  m_Name: Canvas - Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

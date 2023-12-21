@@ -1,3 +1,4 @@
+using Lean.Pool;
 using Ring;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,18 +6,38 @@ using UnityEngine.EventSystems;
 public class GameManager : RingSingleton<GameManager>
 {
     [HeaderTextColor(0.2f, .7f, .8f, headerText = "CheckBox For Player")] public GameController _gameController;
-    void Start()
+
+    private void Start()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        //UiManager.Instance.OpenUI<GamePlay>();//gọi UI đầu tiên
+        CreateObjectGame();
+    }
+
+    private void CreateObjectGame()
+    {
+        LeanPool.Spawn(_gameController._playerPrefabs, _gameController._playerPositionCreate.position, Quaternion.identity);
+        for (int i = 0; i < _gameController._listPositionCreateZombie.Count; i++)
+        {
+            GameObject zombie = LeanPool.Spawn(_gameController._zombiePrefabs, _gameController._listPositionCreateZombie[i].position, Quaternion.identity);
+
+            _gameController._listZombie.Add(zombie.GetComponent<BotController>());
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //UpdateAlive();
     }
+
+    public void UpdateAlive()
+    {
+        UiManager.Instance._uiController._textAlive.text = _gameController._listZombie.Count.ToString();
+    }
+
+    #region Zombies
+
     public Vector3 GetPositionPlayer(BotController botController)
     {
         Vector3 positionA = PlayerManager.Instance.transform.position;
@@ -30,6 +51,7 @@ public class GameManager : RingSingleton<GameManager>
 
         return targetPosition;
     }
+
     public void RotateZombie(BotController botController)
     {
         Vector3 direction = (PlayerManager.Instance.transform.position - botController._botController._rotateZombie.transform.position).normalized;
@@ -38,6 +60,7 @@ public class GameManager : RingSingleton<GameManager>
         toRotation = Quaternion.Euler(currentRotationX, toRotation.eulerAngles.y, toRotation.eulerAngles.z);
         botController._botController._rotateZombie.transform.rotation = toRotation;
     }
+
     public void RotatePlayer()
     {
         Vector3 direction = (PlayerManager.Instance._playerController._listBot[0].transform.position - PlayerManager.Instance.transform.position).normalized;
@@ -46,8 +69,10 @@ public class GameManager : RingSingleton<GameManager>
 
         PlayerManager.Instance._playerController._rotatePlayer.transform.rotation = newRotation;
         PlayerManager.Instance._playerController._directionBullet = direction;
-        
     }
+
+    #endregion Zombies
+
     #region Method Game
 
     public bool CheckUIReturn()
@@ -77,11 +102,10 @@ public class GameManager : RingSingleton<GameManager>
         }
 #endif
 
-        #endregion
-
+        #endregion Kiểm tra xem có nhấn va UI nào không , nếu không thì return
 
         return false;
     }
 
-    #endregion
+    #endregion Method Game
 }

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 public class RotateHealth : MonoBehaviour
 {
@@ -10,8 +7,12 @@ public class RotateHealth : MonoBehaviour
     {
         _cam = Camera.main;
     }
+    
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - _cam.transform.position);
+        Vector3 direction = transform.position - _cam.transform.position;
+        direction.y = 0;  // Giữ cho Health Bar luôn ngang
+        transform.rotation = Quaternion.LookRotation(direction);
     }
+
 }

@@ -37,7 +37,7 @@ public class BotController : MonoBehaviour
         _botController._navMeshAgent.isStopped = true;
         gameObject.layer = LayerMask.NameToLayer(Settings.LayerDie);
         _botController._navMeshAgent.enabled = false;
-        _botController._touchBullet._imageDamage.gameObject.SetActive(false);
+        _botController._touchBullet._imageDamage.transform.parent.gameObject.SetActive(false);
         gameObject.tag = Settings.Tag_Die;
         PlayerManager.Instance._playerController._listBot.Remove(this);
         _botController._positionDestination = Vector3.zero;
