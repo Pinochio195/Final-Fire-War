@@ -764,8 +764,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
-  _gold: {fileID: 0}
-  _countKill: {fileID: 0}
+  _gold: {fileID: 2975191187034923439}
+  _countKill: {fileID: 1010183194048704972}
 --- !u!1 &5186937767623851913
 GameObject:
   m_ObjectHideFlags: 0

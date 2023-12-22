@@ -12,6 +12,7 @@ public class GameManager : RingSingleton<GameManager>
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         CreateObjectGame();
+        UpdateAlive();
     }
 
     private void CreateObjectGame()
@@ -28,12 +29,17 @@ public class GameManager : RingSingleton<GameManager>
     // Update is called once per frame
     private void Update()
     {
-        //UpdateAlive();
     }
 
     public void UpdateAlive()
     {
         UiManager.Instance._uiController._textAlive.text = _gameController._listZombie.Count.ToString();
+        if (_gameController._listZombie.Count<=0)
+        {
+            UiManager.Instance.OpenUI<Win>()._countKill.text = _gameController._listPositionCreateZombie.Count.ToString();
+            UiManager.Instance.OpenUI<Win>()._gold.text = (_gameController._listPositionCreateZombie.Count*100).ToString();
+            UiManager.Instance.CloseUI<GamePlay>();
+        }
     }
 
     #region Zombies
@@ -64,9 +70,17 @@ public class GameManager : RingSingleton<GameManager>
     public void RotatePlayer()
     {
         Vector3 direction = (PlayerManager.Instance._playerController._listBot[0].transform.position - PlayerManager.Instance.transform.position).normalized;
+        if (PlayerManager.Instance._playerController.isNextZombie)
+        {
+            PlayerManager.Instance._playerController.currentZombieTarget = PlayerManager.Instance._playerController._listBot[Random.Range(0, PlayerManager.Instance._playerController._listBot.Count)];
+        }
+        else
+        {
+            PlayerManager.Instance._playerController.currentZombieTarget = PlayerManager.Instance._playerController._listBot[0];
+        }
+        PlayerManager.Instance._playerController.currentZombieTarget._botController._rotateTarget.SetActive(true);
         direction.y = 0;
         Quaternion newRotation = Quaternion.LookRotation(direction);
-
         PlayerManager.Instance._playerController._rotatePlayer.transform.rotation = newRotation;
         PlayerManager.Instance._playerController._directionBullet = direction;
     }

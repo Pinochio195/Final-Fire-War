@@ -51,10 +51,11 @@ public class Loading : MonoBehaviour
         // Tạo một bản đồ mới
         GameObject map = Resources.Load("Level/1") as GameObject;
         instantiatedMap = LeanPool.Spawn(map) as GameObject;
-        instantiatedMap.SetActive(false);
         LevelManager.Instance.AddLevel(instantiatedMap);
+        instantiatedMap.SetActive(false);
         // Chờ cho đến khi bản đồ được tải hoàn toàn
         yield return new WaitUntil(() => instantiatedMap != null);
+
 
         Debug.Log("Map loaded!");
     }

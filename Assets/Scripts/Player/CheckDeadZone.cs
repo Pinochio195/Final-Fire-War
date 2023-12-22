@@ -28,10 +28,9 @@ public class CheckDeadZone : MonoBehaviour
             {
                 // Nếu chưa có, thì thêm vào danh sách
                 PlayerManager.Instance._playerController._listBot.Add(botController);
-                Debug.Log(other.name);
                 PlayerManager.Instance._playerController.isCheckTarget = true;
             }
-                GameManager.Instance.RotatePlayer();
+            GameManager.Instance.RotatePlayer();
         }
     }
 
@@ -39,6 +38,10 @@ public class CheckDeadZone : MonoBehaviour
     {
         if (other.CompareTag(Settings.Tag_CheckZombie))
         {
+            if (PlayerManager.Instance._playerController.currentZombieTarget != null)
+            {
+                PlayerManager.Instance._playerController.currentZombieTarget._botController._rotateTarget.SetActive(false);
+            }
             if (PlayerManager.Instance._playerController._listBot.Count > 0 )
             {
                 //trừ

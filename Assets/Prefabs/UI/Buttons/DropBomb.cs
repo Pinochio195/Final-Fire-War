@@ -9,12 +9,13 @@ public class DropBomb : BaseClickButton
     protected override void OnButtonClick()
     {
         myButton.interactable = false;
-        GameObject bom = LeanPool.Spawn(_bombPrefabs, PlayerManager.Instance.transform.position + Vector3.up*2,Quaternion.identity);
+        GameObject bom = LeanPool.Spawn(_bombPrefabs, PlayerManager.Instance.transform.position + Vector3.up * 15, Quaternion.identity);
+        //bom.transform.position = PlayerManager.Instance.transform.position + Vector3.up * 55;
         StartCoroutine(DelayBom());
     }
     IEnumerator DelayBom()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         myButton.interactable = true;
     }
   

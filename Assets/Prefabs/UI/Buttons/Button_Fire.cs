@@ -48,6 +48,10 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 CountFire();
             }
         }
+        else
+        {
+            PlayerManager.Instance._playerController._effectBullet.Stop();
+        }
     }
 
     private void CountFire()
@@ -67,6 +71,7 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 LeanPool.Despawn(bullet, 5);
                 //trừ đạn theo từng viên
                 PlayerManager.Instance._playerController._effectFire.Play();
+                PlayerManager.Instance._playerController._effectBullet.Play();
                 if (Input.GetMouseButton(0))
                 {
                     MusicManager.Instance.PlayAudio(Ring.MusicController.TypeMusic.Fire);
@@ -81,6 +86,7 @@ public class Button_Fire : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             buttonReload.interactable = false;//chống spam
         }
+        PlayerManager.Instance._playerController._effectBullet.Stop();//tắt effect khi gài đạn
         float elapsedTime = 0f;
         int count2 = Int32.Parse(_countFire2.text);
         int count1 = Int32.Parse(_countFire1.text);

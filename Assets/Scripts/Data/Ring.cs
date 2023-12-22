@@ -17,6 +17,7 @@ namespace Ring
         [ChangeColorLabel(0.2f, 1, 1)] public GameObject _zombiePrefabs;
         [ChangeColorLabel(0.2f, 1, 1)] public Transform _playerPositionCreate;
         [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listZombie;
+        //[ChangeColorLabel(0.2f, 1, 1)][Tooltip("xác định số lượng zombies để tính gold")] public int _startCountZombie;
         [ChangeColorLabel(0.2f, 1, 1)] public List<Transform> _listPositionCreateZombie;
     }
 
@@ -33,10 +34,13 @@ namespace Ring
         [ChangeColorLabel(0.2f, 1, 1)] public GameObject _prefabBullet;
         [ChangeColorLabel(0.2f, 1, 1)] public Vector3 _directionBullet;
         [ChangeColorLabel(0.2f, 1, 1)] public ParticleSystem _effectFire;
+        [ChangeColorLabel(0.2f, 1, 1)] public ParticleSystem _effectBullet;
         [HeaderTextColor(0.5f, .5f, 1f, headerText = "List Bot in deadzone")]
         [ChangeColorLabel(0.2f, 1, 1)] public List<BotController> _listBot;
         [ChangeColorLabel(0.2f, 1, 1)][Tooltip("Dùng để check khi có zombie vào trong vòng deadzone")] public bool isCheckTarget;
         [ChangeColorLabel(0.2f, 1, 1)] public GameObject _targetFollow;
+        [ChangeColorLabel(0.2f, 1, 1)][Tooltip("xác định đối tưởng target")] public BotController currentZombieTarget;
+        [ChangeColorLabel(0.2f, 1, 1)][Tooltip("khi bằng true sẽ next sang con thứ tiếp theo")] public bool isNextZombie;
     }
     [Serializable]
     public class BotManager
@@ -57,6 +61,7 @@ namespace Ring
         [Tooltip("Tìm player để nhận destination (Không sử dụng để reference)")][ChangeColorLabel(0.2f, 1, 1)] public Vector3 _positionDestination;
         [HeaderTextColor(0.5f, .5f, 1f, headerText = "Touch Bullet")]
         [ChangeColorLabel(0.2f, 1, 1)] public TouchBullet _touchBullet;
+        [ChangeColorLabel(0.2f, 1, 1)] public GameObject _rotateTarget;
 
         
 
@@ -92,6 +97,7 @@ namespace Ring
     public class LevelController
     {
         [ChangeColorLabel(0.2f, 1, 1)] public List<GameObject> _listLevel;
+        [ChangeColorLabel(0.2f, 1, 1)] public List<D_Weapons> _listDataWeapon;
     }
     [Serializable]
     public class CheckScene

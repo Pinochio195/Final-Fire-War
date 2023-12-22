@@ -7,4 +7,5 @@ public class D_Weapons : ScriptableObject
     public bool isCheckBuy;
     public float timeFire;
     public int coolDownReload;
+    public float damage;
 }

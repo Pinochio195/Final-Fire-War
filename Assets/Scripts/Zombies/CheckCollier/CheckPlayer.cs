@@ -28,6 +28,7 @@ public class CheckPlayer : MonoBehaviour
         if (other.CompareTag(Settings.Tag_Player))
         {
             _botController._botController._checkZonePlayer = BotManager.CheckPlayer.InSide;
+
         }
     }
 

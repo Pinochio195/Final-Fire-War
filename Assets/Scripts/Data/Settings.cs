@@ -16,4 +16,7 @@ public static class Settings
     public static string LayerDie = "Die";
     public static float RadiusAttackPlayer = .75f;
 
+    public static string Save_Weapon = "Id Weapon";
+    public static string Save_Sound = "Sound";
+    public static string Save_Vibrate = "Vibrate";
 }

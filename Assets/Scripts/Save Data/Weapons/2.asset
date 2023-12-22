@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016c519f1e8a7e247a067c0bc86e7344, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  itemName: 2
+  itemName: Weapon2
   isCheckBuy: 0
   timeFire: 0.5
   coolDownReload: 2
+  damage: 0.002
