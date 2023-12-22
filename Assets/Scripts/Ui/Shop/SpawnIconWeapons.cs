@@ -17,7 +17,7 @@ public class SpawnIconWeapons : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject iconweapon = LeanPool.Spawn(weapon, Vector3.zero, Quaternion.identity, transform);
-            iconweapon.GetComponentInChildren<Text>().text = "Weapon "+(i+1);
+            iconweapon.GetComponentInChildren<Text>().text = (i+1).ToString();
         }
     }
 }
