@@ -195,9 +195,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1863790232742640122}
-        m_TargetAssemblyTypeName: ExitShop, Assembly-CSharp
-        m_MethodName: Extit
+      - m_Target: {fileID: 3369956398550891235}
+        m_TargetAssemblyTypeName: UICanvas, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
